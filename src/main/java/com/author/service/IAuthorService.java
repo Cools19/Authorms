@@ -12,6 +12,7 @@ public interface IAuthorService {
 	Optional<Book> getBook(Integer id);
 	public void deleteBook(Integer id);
 	public Book updateBook(Book book, Integer id) ;
+	public String deletebyAuthor(Integer id);
 	public void deleteAll();
 
 }

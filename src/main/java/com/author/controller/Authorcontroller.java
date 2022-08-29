@@ -51,8 +51,8 @@ public class Authorcontroller {
 	 
  @GetMapping("/getbook/{id}")
  public Optional<Book> getEmployee(@PathVariable Integer id){
-	 Optional<Book> employee = authorService.getBook(id);
-	 return employee; 
+	 Optional<Book> book = authorService.getBook(id);
+	 return book; 
  }
  
  @DeleteMapping ("/deletebook/{id}")
@@ -61,7 +61,8 @@ public class Authorcontroller {
 	 ResponseEntity<Book> responseEntity = new ResponseEntity<>(HttpStatus.OK);
 	 
 			 try {
-				 authorService.getBook(id);
+				 String result = authorService.deletebyAuthor(id);
+				 System.out.print(result);
 			 }
 	 		catch(Exception e) {
 	 			e.printStackTrace();

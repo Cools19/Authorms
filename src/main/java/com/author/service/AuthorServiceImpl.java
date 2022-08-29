@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.author.exceptionhandling.ResourceNotFoundException;
 import com.author.model.Book;
 
 @Service
@@ -22,27 +23,26 @@ public class AuthorServiceImpl  implements IAuthorService {
 
 	@Override
 	public List<Book> getAllBooks() {
-		// TODO Auto-generated method stub
 		return authorRepository.findAll();
 	}
 
 	@Override
 	public Optional<Book> getBook(Integer id) {
-		// TODO Auto-generated method stub
 			return authorRepository.findById(id);
 	}
 
 	@Override
 	public void deleteBook(Integer id) {
-		// TODO Auto-generated method stub
 		authorRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public Book updateBook(Book book, Integer id) {
-		// TODO Auto-generated method stub
-		Book existingbook = authorRepository.findById(id).orElse(book);
+		Book existingbook = authorRepository.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException ("Book","id",id.toString()));
+		
+		
 				
 		existingbook.setTitle(book.getTitle());
 		existingbook.setCategory(book.getCategory());
@@ -60,5 +60,14 @@ public class AuthorServiceImpl  implements IAuthorService {
 		// TODO Auto-generated method stub
 		authorRepository.deleteAll();
 	}
+	
+	@Override
+	public String deletebyAuthor(Integer id) {
+			authorRepository.deleteById(id);
+			return "deleted";
+	
+	}
+	
+	
 
 }
